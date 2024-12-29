@@ -334,10 +334,10 @@ class PharmacySystem:
             }
         )
         
-        # Add export functionality
-        if st.button("📥 Export Data Pasien (CSV)"):
-            df_patients.to_csv("data_pasien.csv", index=False)
-            st.success("Data pasien berhasil diexport ke file 'data_pasien.csv'")
+        # # Add export functionality
+        # if st.button("📥 Export Data Pasien (CSV)"):
+        #     df_patients.to_csv("data_pasien.csv", index=False)
+        #     st.success("Data pasien berhasil diexport ke file 'data_pasien.csv'")
     
     def pharmacy_locations(self):
         st.title("🗺️ Lokasi Apotek")
