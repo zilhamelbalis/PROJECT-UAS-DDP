@@ -33,15 +33,15 @@ class PharmacySystem:
         self.inital_data()
         
     def inital_data(self):
-        # Initialize patient data storage
+        # Inisialisasi data awal pasien
         if 'semua_pasien' not in st.session_state:
             st.session_state.semua_pasien = []
         
-        # Initialize current patient
+        # Inisialisasi pasien saat ini
         if 'current_patient' not in st.session_state:
             st.session_state.current_patient = None
             
-        # Initialize list of diseases/conditions
+        # Inisialisasi daftar penyakit/kondisi
         self.daftar_penyakit = [
             "Demam",
             "Analgesik"
@@ -57,7 +57,7 @@ class PharmacySystem:
         ]
         
 
-        # Initialize pharmacy location data
+        # Inisialisasi lokasi apotek
         self.pharmacy_data = pd.DataFrame([
             {
                 'nama': 'Apotek K-24 Kelapa Dua Depok',
@@ -161,7 +161,7 @@ class PharmacySystem:
             },
         ])
 
-        # Initialize medicine inventory with expanded list
+        # Inisialisasi inventaris obat
         self.medicine_inventory = [
             {"nama": "Paracetamol", "kategori": "Analgesik"},
             {"nama": "Paracetamol", "kategori": "Analgesik"},
@@ -186,7 +186,7 @@ class PharmacySystem:
             {"nama": "Panadol", "kategori": "Sakit Kepala"},
         ]
     
-    def jalanin(self):
+    def run(self):
                 
         st.set_page_config(
             page_title="Sistem Manajemen Apotek",
@@ -194,7 +194,7 @@ class PharmacySystem:
             layout="wide"
         )
         
-        # Sidebar navigation
+        # Navigasi Sidebar
         st.sidebar.title("🏥 Sistem Apotek Digital")
         menu = st.sidebar.radio(
             "Pilih Menu",
@@ -227,7 +227,7 @@ class PharmacySystem:
             )
         st.title("📝 Formulir Pasien")
 
-        # Create form columns for better organization
+        # Membuat kolom untuk formulir pasien
         col1, col2 = st.columns(2)
         
         with col1:
@@ -299,10 +299,10 @@ class PharmacySystem:
                 'Keluhan': patient.keluhan
             })
         
-        # Convert to DataFrame and display as table
+        # Konvert ke dataframe dan menampilkan sebagai tabel
         df_patients = pd.DataFrame(patients_data)
         
-        # Add search functionality
+        # Menambahkan fungsi pencarian
         search_term = st.text_input("🔍 Cari Pasien:", "")
         
         if search_term:
@@ -314,10 +314,10 @@ class PharmacySystem:
         else:
             df_filtered = df_patients
         
-        # Display total patients
+        # Menampilkan total pasien
         st.write(f"Total Pasien: {len(df_filtered)}")
         
-        # Display the table with custom styling
+        # Menampilkan tabel dengan gaya yang diinginkan
         st.dataframe(
             df_filtered,
             use_container_width=True,
@@ -334,7 +334,7 @@ class PharmacySystem:
             }
         )
         
-        # # Add export functionality
+        # # Menambahkan fungsi export data ke CSV
         # if st.button("📥 Export Data Pasien (CSV)"):
         #     df_patients.to_csv("data_pasien.csv", index=False)
         #     st.success("Data pasien berhasil diexport ke file 'data_pasien.csv'")
@@ -416,7 +416,7 @@ class PharmacySystem:
         if st.session_state.current_patient:
             default_keluhan = st.session_state.current_patient.keluhan
 
-        # Inventory overview
+        # Inventaris Umum
         df_inventory = pd.DataFrame(self.medicine_inventory)
         
         # Filter section
@@ -433,4 +433,4 @@ class PharmacySystem:
             
 if __name__ == "__main__":
     system = PharmacySystem()
-    system.jalanin()
+    system.run()
